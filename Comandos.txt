@@ -1,0 +1,990 @@
+https://blog.desdelinux.net/mas-de-400-comandos-para-gnulinux-que-deberias-conocer/
+
+ls: Listar los archivos
+
+ls -lh: Listar archivos para ver su peso de una manera mas legible
+
+ls -a: Listar archivos ocultos
+
+pwd: Indentificar la ruta en la que estamos en nuestro sistema
+
+cd : Movernos entre directorios 
+
+mkdir : Crear un carpeta 
+
+cp nom_archivo a_nom_archivo: Copiar un archivo
+
+rm -rf nom_archivo: borrar un archivo a la fuerza
+
+rm -i nom_archivo: Borra un archivo pero antes nos pregunta
+
+rm -ri nom_archivo: Borra de forma recursiva pero preguntandote si deseas eliminar en cada instante
+
+mv nom_archivo to_nom_archivo: Mover un archivo/Renombra un archivo
+
+rmdir nom_dir: Borrar un directorio
+
+clear: Limpiar la terminal
+
+file nom_archivo: Nos dice que tipo de archivo es con el que estamos trabajando
+
+tree: Nos muestra el arbol de todos los archivos
+
+tree -L#: Nos muestra # capas de archivos en el que nos encontramos 
+
+touch nom_archivo: Crea un archivo
+
+============================= Explorar el contenido de nuestros archivos =============================
+
+head nom_archivo: Nos enseña la cabecera del archivo
+
+head nom_archivo -n 15: Enseña las primeras 15 lineas del archivo
+
+tail nom_archivo: Nos enseña las ultimas linneas del archivo
+
+tail nom_archivo -n 15: Nos enseña las ultimas 15 lineas del archivo
+
+tail -f nom_archivo: En caso de que alguien mas se logee y entre a ese archivo, nos mostrara en tiempo real que usuario ingresar
+
+less nom_archivo: Nos enseña todo el archivo de texto. Si al final del archivo ponemos u /nom_palabra buscara esa palabra en el archivo. q para salir de ese modo
+
+cat nom_archivo: nos muestra el contenido de un archivo
+
+xsg-open nom_archivo: Nos abre el archivo desde la aplicacion 
+
+============================= Que es un comando =============================
+
+type nom_comando: Nos dice que tipo de comando es 
+
+alias nom_var="comando que reprecente": Crea un alias mientras no cierres la terminal 
+alias l="ls -lh" y con eso poder escribir en la terminal: l 
+
+help nom_comando: nos ayuda a ver para que usar ese comando 
+
+man nom_comando: Enseña el manual de usuario de ese comando 
+
+info nom_comando: descripcion de el comando
+
+whatis nom_comando: descripcion muy breve de para que se usa el comando 
+
+============================= Wildcards =============================
+Esto nos sirve para realizar seccionamiento de archivos o directorios, ademas de "ls" las Wildcards tambien pueden usarse con cualquier comando que realize la manipulacion de archivos como "mv", "cp" y "rm".
+
+ls nombre*extencion: Nos enseña todas las coinsidencias que terminen o empiecen con esa extencion o ese nombre
+ls *.txt
+ls hola*
+
+ls nombre?: Nos enseña nada mas las coincidencias que empiecen con ese nombre y que posean un caracter
+
+ls [[:upper:]]*: Nos enseña en dos capas los archivos o directorios que tengan la primera letra mayuscula y que lo demas continue con caracteres
+
+ls -d [[:upper:]]*: Hace lo mismo que lo anterior solo que aqui busca en 1 sola capa 
+
+ls [ad]*: Busca todos los archivos o directorios que empiecen con las letras a o d y que despues de eso le siga cualquier caracter
+
+============================= Redireccionamientos =============================
+
+ls comando > nom_archivo: Redireccionamos el Standard Output hacia un archivo
+ls -l > output.txt
+
+ls comando >> nom_archivo: Si queremos guardar la informacion de la carpeta del documento, concatenamos el contenido del documento con el de la salida
+ls -l >> output.txt
+
+ls comando 2> nom_archivo: Redireccionamos el error 
+
+ls comando > nom_archivo 2>&1: Aqui no importa si sale un Standard Output o Standard Error, igual tiene que guardad la salida a un archivo
+
+============================= Redirecciones: pipe operator =============================
+Los pipelines son tuberias, y estas nos ayudan a mezclar comandos haciendo que funcionen como si fuera uno solo
+(La salida de un comando sirve como entrada para otro comando)
+
+echo "enufuefuyerf": Muestra una salida por consola 
+
+tee : Lee una entrada estandar y la escribe en la salida enstandar y en uno o mas archivos
+
+ls -lh | sort | tee output.txt | less: Listamos lo que tengamos en la carpeta, lo ordenamos, hacemos lo que hace tee y mostramos el archivo obbtenido
+
+cowsay: muestra una vaquita jajaja
+
+============================= Encadenando comandos: operadores de control =============================
+
+Ejecucion de manera sincrona
+ls; mkdir holi; cal: Primero lista el directorio en el que nos encontramos, decpues crea un directorio llamado holi y finalmente despliega un calensrio, esto en diferentes hilos
+
+Ejecucion de manera asincrona
+ls & date & cal: Ejecuta en diferentes proceos los comandos 
+
+Comandos condicionales AND (&&)
+mkdir test && cd test: Crea el directorio test, y si lo hace con exito, mueveme a el
+
+Comandos condicionales OR (||)
+cd hywug || touch archivo.txt || echo "Archivo creado": hywug no exixte, por lo que el sisitema no podra ingresar, con lo cual, procedera a crear el archivo .txt y despues mostrara el mensaje 
+
+============================= Modificar permisos =============================
+
+chmod 777 nom_archivo: Cambiamos permisos 
+
+chmod u(-)(+)r nom_archivo: solo al usuario le quitamos los permisos de lectura en ese archivo
+
+chmod u(-)(+)x, go=w nom_archivo: Al usuario le quitamos los permisos de ejecucion y al grupo y otros le sobreescribimos los permiso de escritura
+(el paramentro a es all)
+
+sudo chown usuario_destino:grupo_destino: Cambia de dueño el archivo
+
+whoami: te muestra quien eres dentro de la terminal
+
+su root: nos cambiamos al perfil de root 
+
+sudo: al poner esto antes del comando hara que te de privilegios de root mientras ejecutamos ese comando
+
+passwd: podemos cambiar la contraseña 
+
+============================= Variables de entorno =============================
+
+Link simbolico 
+ln -s ruta nom_linkSimbolico: esto es como un acceso directo hacia esa ruta
+
+printenv: Nos muestra las variables d entorno que tenemos ya en el sistema 
+
+Variable $HOME: Tiene la direccion del homa
+
+Variable $PATH: Pesee todas las rutas de los binarios que se ejecutan en nuestro sistema
+
+code .bachrc: con eso abrimos VSC y asi poder modificar las variables de entorno
+
+============================= Comandos de busqueda =============================
+
+which nom_app: nos ayuda a encontrar la ruta de nuestros binarios
+
+find direccion: Nos permite encontrar un archivo
+
+find ./ -name file: buscara desde la raiz en todos los directorios el archivo file y mostrara la direccion
+
+find ./ -name *.txt: buscara desde la raiz en todos los directorios los archivos que sean txt y mostrara la direccion
+
+find ./ -type "f/d" -name nom_archivo: Buscara desde la raiz en todos los directorios solo los archivos o directorios con el nombre especificado
+
+find ./ -type f -name *.log: buscara desde la raiz en todos los directorios los archivos que sean con terminacion .log
+
+find ./ -size 20M: buscara desde la raiz en todos los directorios los archivos que pesen 20Mbytes
+
+============================= Usando el comando grep =============================
+
+grep exprecion_regular archivo_a_buscar: Encuentra coincidencias de una busqueda dentro de un archivo
+
+grep -i exprecion_regular archivo_a_buscar: Quita el Key Sensitive y realiza la busqueda dentro del archivo
+
+grep -c exprecion_regular archivo_a_buscar: Cuenta el numero de ocurrencias en ese archivo
+
+grep -v exprecion_regular archivo_a_buscar: Muestra todo excepto la exprecion regular 
+
+wc nom_archivo: cuenta cuantas palabras hay en ese archivo( lineas palabras bits nom_archivos)
+
+============================= Utilidades de red =============================
+
+ifconfig: nos muestra informacion de nuestra red
+
+ping nom_sitioweb: nos dice si una pagina esta activa o no (constantemente manda datos)
+
+curl: trae un archivo de texto de una pagina web
+
+wget: nos descarga el archivo html de la pagina de internet con todo y formato
+
+traceroute pagina_web: Nos sirve para ver por cuales computadoras tenemos que ir pasando para llegar por ejemplo a un sitio web (Nos muestra las ip's por las que vamos pasando para poder llegar al destino)
+
+netstart -i: Nos muestra los dispositivos de red
+
+ip (-4)(-6) a: ip address show, también muestra la información de la red.
+Algunos modificadores para este comando son -4 para listar solo las ipv4 ó -6 para listar las ipv6.
+
+hostname: Para visualizar el nombre del equipo, este hostname es como se identifica el equipo en las redes.
+
+route -n: Para visualizar la puerta de enlace predeterminada del equipo. Muestra la IP routing table.
+
+nslookup nombre_dominio: Para visualizar la ip de cualquier dominio especifico.
+
+curl nombre_dominio: Puede realizar simulaciones como las que hace Postman.
+
+wget nombre_dominio: Para obtener información desde internet.
+
+============================= Comprimiendo archivos tar y zip =============================
+
+tar -cvf nom_archivo.tar carpeta_a_comprimir: comprime un archivo con extencion .tar
+
+tar -xvf nom_archivo.tar: Descomprime el archivo .tar
+
+zip -r nom_archivo.zip nom_dir: Comprime un archivo con extencion .zip
+
+unzip -r nom_archivo: Descomprime un archivo .zip
+
+============================= Manejo de procesos ============================= 
+
+ps: Nos muestra los procesos que estan corriendo actualmente
+
+kill PID: Mata el proceso con ese PID
+
+top: Nos muestra una tabla en la que podemos ver los procesos que estan usando mas recursos 
+
+============================= Procesos en foreground y background ============================= 
+
+Cuando un proceso esta en ejecucion sin que sea mostrado en la terminal se dice que se esta ejecutando en el background. Si se muestra la ejecucion del comando dentro de la terminal se dice que esta en el foreground.
+
+Ctrl + z: Suspende el proceso
+Ctrl + c: Finaliza el proceso
+Ctrl + d: Termina el input y guarda
+
+jobs: vemos los procesos que tenemos en el background
+
+fg num_trabajo: traera del background al foreground unproceso
+
+Otra forma de mandar procesos al background es usando el operados "&" al final de un comando, lo cual permitira enviar de manera directa un proceso al background una vez ejecutando
+
+bg num_trabajo: enviara del background al foreground
+
+============================= Editor de textos en la terminal ============================= 
+
+vim nom_archivo: abre el archivo de textos de la terminal (:q para salir, :wq guarda y salir, :wq! guardas y sales abruptamente)
+
+============================= Conociendo las terminales en linux =============================
+
+sudo chvt #(1-6): Esto lo usamos para cambiar entre diferentes terminales
+
+tty: Muestra la consola en la que estamos trabajando 
+
+w: Muestra los usuarios conectados a nuestro sistema con mayor dettalle 
+
+ssh localhost: ofrece comunicación encriptada y segura entre dos sistemas sobre una red no segura en este caso entre nosotros mismos
+
+ps -ft tty#: Filtrar para ver las conexiones de los usuarios (Si tomamos el PID y ejecutamos "kill PID" estaremos matando ese proceso)
+
+============================= Manejo y monitoreo de procesos y recursos del sistema =============================
+
+ps aux: Nos muestra todos los procesos que se estan ejecutando en nuestro sistema
+
+============================= Monitoreo de recursos del sistema =============================
+
+cat /proc/cpuinfo | grep "processor": Muestra información sobre el CPU
+
+free -h: Vemos el espacio total en el dispositivo (usada y libre)
+
+du: Muestra info. del disco duro
+
+du -hsc "ruta": muestra el tamaño de ese directorio
+
+sudo ps auxf | sort -nr -k 3 | head -5: Muestra los 5 procesos que más uso hacen del CPU
+
+sudo ps auxf | sort -nr -k 4 | head -5: Muestra los 5 procesos que más uso hacen de la memoria RAM
+
+htop: Muetra en una interfaz mas entendible el monitoreo de los recursos del sistema
+
+============================= Administración de paquetes acorde a la distribución =============================
+
+Red Hat / CentOS / Fedora
+    .rpm (Red Hat Package Manager).
+        Base de datos RPM, localizada en var/lib/rpm
+        rpm -qa: Listar todos los rpms instalados en la máquina. (query all)
+        rpm -i paquete.rpm: Realizar la instalación de un paquete. (install)
+        rpm -e paquete.rpm: Remover un paquete del sistema. (erase)
+
+    Repositorios yum: Permite instalar un paquete desde un repositorio sin tener que conocer la ruta del archivo o las dependencias. 
+    yum install paquete
+
+Debian / Ubuntu
+    .deb (Debian package management).
+        Base de datos DPKG, localizada en /var/lib/dpkg
+            dpkg -l: Listar todos los debs instalados en la máquina.
+            dpkg -i paquete.deb: Realizar la instalación de un paquete.
+            dpkg -r paquete.deb: Remover un paquete del sistema.
+    dpkg-reconfigure
+            dpkg-reconfigure paquete: Volver a ejecutar el asistente de configuración si está disponible. (tzdata es el paquete del horario del servidor)
+    repositorios apt otra forma de instalar.
+        apt install paquete
+
+============================= Manejo de paquetes en sistemas basados en Debian/Ubuntu =============================
+
+sudo apt update: Actualiza la información local sobre los repositorios de Ubuntu
+
+sudo apt upgrade: Actualiza todos los programas que tenemos instalados en la máquina
+
+sudo snap install paquete: Instala un paquete con el nuevo gestor de paquetes de Canonical, snap
+
+date: Imprime la fecha actual
+
+============================= Administración de software con YUM y RPM para CentOS =============================
+
+rpm -qa: Enlista los paquetes instalados en el SO.
+
+rpm -qi (bash) nombre_paquete: Mostrar la información sobre un paquete especifico.
+
+Con Bash podemos hacer scripting en SO Linux.
+
+rpm -qc nombre_paquete: Muestra todos los archivos involucrados sobre el paquete.
+
+También podemos usar yum. Pero lo primero es dar "yum update". Pero para poder ejecutarlo necesitamos un usuario con todos los permisos, por ejemplo el usuario root.
+
+Si se muestra un # al final del nombre del usuario, eso indica que estamos trabajando con un usuario root. Por ejemplo:
+[root@server ~]#
+
+Lo ideal es nunca trabajar con un usuario root. Lo ideal es crear usuarios que tengan ciertos permisos específicos, por medidas de seguridad y evitar errores.
+
+yum install net-tools: Para habilitar el ifconfig
+
+rpm -e nombre_paquete: Para eliminar un paquete del SO.
+
+============================= Intalacion de htop =============================
+
+(1) yum search htop: Busca si ya esta en el repositorio
+
+yum -y install epel-release: instalar y habilitar el repositorio epel
+
+yum repolist: Muestra la lista de los repositorios que se tengan de yum
+
+volvemos a ejecutar (1)
+
+yum update
+yum upgrade
+
+yum install htop: Intalamos htop
+
+yum update htop: actualizar los paquetes de htop
+
+============================= Nagios: Desempaquetado, descompresión, compilación e instalación de paquetes =============================
+
+Intalamos los siguientes paquetes 
+    sudo apt install build-essential libgd-dev openssl libssl-dev unzip apache2 php gcc libdbi-perl libdbd-mysql-perl
+
+Descargamos Nagios
+    wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.4.tar.gz -O nagioscore.tar.gz
+
+Descomprimir y desempaquetar el archivo descargado
+    tar xvzf nagioscore.tar.gz
+
+Configurar e instalar (en la carpeta donde se descomprimieron los archivos) a Nagios
+    sudo ./configure --with-https-conf=/etc/apache2/sites-enabled
+    sudo make all
+    sudo make install
+
+    #Aporte del usuario @diegohernanvillalobos
+    #Si no les funciona "sudo make install" continuar con los siguientes comandos y ejecutar luego "sudo make install"
+    sudo make install-groups-users
+    sudo usermod -a -G nagios www-data
+    #Hasta aquí
+
+    sudo make install-init
+    sudo make install-commandmode
+    sudo make install-config
+    sudo make install-webconf
+
+Activar el servicio de Nagios
+    sudo systemctl start nagios
+
+BONUS: instalar plugins de Nagios
+    wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz -O nagios-plugins.tar.gz
+    tar xzvf nagios-plugins.tar.gz
+    cd nagios-plugins-2.2.1
+    sudo ./configure
+    sudo make all
+    sudo make install
+
+============================= Los usuarios, una tarea vital en el proceso de administración del sistema operativo =============================
+
+id: Muestra el identificador único de mi usuario, del grupo al que pertenezco y los grupos de los cuales formo parte
+
+whoami: Muestra que usuario soy
+
+passwd: Cambia la contraseña del usuario actual
+
+cat /etc/passwd: Muestra todos los usuarios del sistema operativo
+
+cat /etc/shadow: Muestra las contraseñas del sistema operativo
+
+============================= Creando y manejando cuentas de usuario en el sistema operativo =============================
+
+sudo useradd usuario: Crea un usuario
+
+sudo adduser usuario: Crea un usuario y solicita un password, además de otros datos
+
+sudo userdel usuario: Borra un usuario
+
+history: Muestra todos los comandos usados anteriormente
+
+sudo usermod: Modifica un usuario
+
+cat /usr/sbin/nombre_de_comando: Muestra el contenido de un comando
+
+============================= Entendiendo la membresía de los grupos =============================
+
+su - usuario: Switch User, cambia de usuario
+
+sudo su - root: permite convertirnos en root
+
+groups usuario: Muestra a que grupos pertenece cierto usuario
+
+sudo gpasswd -a usuario grupo: Agrega un usuario a un grupo
+
+sudo gpasswd -d usuario grupo: Quita a un usuario de un grupo
+
+usermod -aG grupo usuario: Agrega un usuario a un grupo
+
+sudo -l: Muestra que permisos tiene el usuario actual
+
+============================= Usando PAM para el control de acceso de usuarios / CentOS =============================
+
+PAM es un mecanismo para administrar a los usuarios de nuestro sistema operativo. Nos permite autenticar usuarios, controlar la cantidad de procesos que ejecutan cada uno, verificar la fortaleza de sus contraseñas, ver la hora a la que se conectan por SSH, entre otras.
+
+ls /etc/pam.d: mustra informacion acaerca de las configuraciones que se le pueden hacer a pam 
+
+ls /lib64/security: Accesos de pam, cada un para funciones especificas
+
+pwscore: Evalúa si una contraseña es buena o mala del 0 al 100
+
+ulimit: Muestra los permisos que tiene el usuario actual. 
+    Modificadores: -u numero: Cambia la cantidad de procesos que mi usuario puede ejecutar
+                   -a: lista los permisos del usuario
+
+sudo vi /etc/security/time.conf: Modifica el archivo que indica en que horarios pueden conectarse ciertos usuarios
+
+============================= Autenticación de clientes y servidores sobre SSH =============================
+
+SSH: Secure Shell, es un protocolo que permite conectar dos computadoras de forma remota sin necesidad de un password, únicamente con la interacción de una llave pública y una llave privada (aunque podemos colocar una contraseña sobre las llaves)
+
+CONFIGURACION: el cliente es nuestra maquina en windows, el servidor es Ubuntu(Maquina virtual)
+
+1.- En el servidor, abrir el archivo sudo (nano)(vi) /etc/ssh/sshd_config con algún editor 
+    (vi): Leer el archivo y configurar a gusto 
+    (nano): Modificamos el archivo 
+(para mas rapidez nosotros pusimos PermitRootLogin yes, PasswordAuthentication no, PermitEmtyPasswords no)
+
+2.- Siempre que se realise un cambio sobre un servicio debemos reiniciarlo o apagarlo y volverlo a encender
+    sudo systemctl stop ssh: Para el servidor
+    sudo systemctl status ssh: Nos muestra el estado del servidor
+    sudo systemctl start ssh: Inicia el servidor
+    sudo systemctl restart ssh: reinicia el servidor
+    service ssh restar: reinicia el servidor pidiendo autenticacion
+
+3.- ssh-keygen -b 4096 -t rsa: crea las llaves 
+
+3.- Elegir ubicación para guardar la llave privada (viene por defecto a menos de que la cambiemos)
+    ls .ssh: nos muestran los archivos de nuetras llaves, ahi se encuentra la llave publica y privado
+
+4.- Ejecutar "ssh-copy-id -i /directorio_de_llave/id_rsa.pub nombre_usuario@direccion_ip_del_servidor" para copiar la llave pública al servidor
+    ssh-copy-id -i /c/User/pac68/.ssh/id_rsa.pub FrankyJA@192.168.1.135
+
+5.- Ejecutar "ssh nombre_usuario@direccion_ip_del_servidor" en la máquina cliente para conectarnos exitosamente de forma remota
+    ssh FrankyJA@192.168.1.135
+
+============================= Configurando DNS con bind =============================
+
+sudo apt install aptitude: Instalacion de Bind
+
+áptitude search "?name(^bind)": Busca el paquete bind mediante una exprecion regular
+
+sudo apt install -y bind9: Instalacion de bind
+
+netstat -ltn: Valida que se instalo correctamente y verificamos que el puerto 53 esta en escucha
+
+netstat -ltnp: Ver el programa que está ejecutando este servicio
+
+dig www.platzi.com @127.0.0.1: Permiten conocer más al respecto del nombre de dominio
+    Allí encontraremos una salida, nos interesa la parte de respuesta y la de tiempo de ejecución para validar que la respuesta se dio desde localhost.
+
+ dpkg -L bind9: Verifica todo lo que viene incluido dentro del paquete como lo son los archivos de configuración manuales entre otros
+
+El archivo de configuración principal será /etc/bind/named.conf, también tenemos el archivo /etc/bind/rndc.key en este se puede configurar la clave que se puede usar para obtener acceso al nombre de dominio.
+
+Podemos ver la versión de bind de dos formas named -v o una versión extendida con named -V
+
+============================= Arranque, detención y recarga de servicios =============================
+
+sudo systemctl status servicio: Estado de un servicio
+sudo systemctl enable servicio: Habilita un servicio
+sudo systemctl disable servicio: Deshabilita un servicio
+sudo systemctl start servicio: Enciende un servicio
+sudo systemctl stop servicio: Apaga un servicio
+sudo systemctl restart servicio: Reinicia un servicio
+sudo systemctl list-units -t service --all: Lista los servicios del sistema
+
+entramos a /var/log
+sudo journalctl -fu servicio: Muestra el log de un servicio
+sudo journalctl --disk-usage: Muestra cuanto pesan los logs en el sistema operativo
+sudo journalctl --list-boots: Muestra los booteos de la computadora
+sudo journalctl -p critic|notice|info|warning|error: Muestra mensajes de determinada categoría de nuestros logs
+sudo journalctl -o json: Muestra los logs en formato json
+
+============================= NGINX y Apache en Ubuntu server =============================
+
+sudo netstat -tulpn: Validamos los puertos que tienen un proceso activo
+
+sudo apt install apache2: Instalacion de apache2
+
+sudo apt install nginx nginx-extras. Intalacion de NGINX
+
+Para verificar si los servicios está corriendon se debe ejecutar los siguientes comandos:
+    systemctl status apache2
+    systemctl status nginx
+
+sudo nano /etc/apache2/ports.conf: Cambiamos el puerto de apache al puerto alterno http 8080
+    Listen 8080
+
+sudo nano /etc/apache2/sites-available/000-default.conf y cambiamos el virtualhost a 8080 <VirtualHost *:8080>
+
+Después realizamos el proceso de detener apache2 y volverlo a encender, con los siguientes comandos:
+    sudo systemctl restart apache2.
+    systemctl status apache2
+    systemctl status nginx.
+
+sudo nano /etc/nginx/sites-available/default aqui añadiremos la linea proxy_pass http://127.0.0.1:8080
+
+============================= Instalación y configuración de NGINX =============================
+
+Dentro de /var/log
+
+sudo apt search nginx: Busca la informacion que tengamos de nginx
+
+sudo apt update && sudo apt install nginx: actualizamos paquetes e instalamos NGINX
+
+cd /etc/nginx
+ls
+vi ngnix.conf
+cd sites-available
+ls
+vi default
+cd /var/www/html
+curl localhost
+curl -I localhost
+cd /etx/nginx/sites-enabled/
+ll
+
+============================= ¿Qué es NGINX Amplify? =============================
+
+NGINX Amplify es una herramienta SaaS que permite realizar el monitoreo de NGINX y NGINX Plus. Los factores que permite monitorear son el rendimiento, configuraciones con análisis estático. parámetros del sistema operativo, así como PHP-FPM, bases de datos y otros componentes. Nginx Amplify es de fácil configuración y llevar control de nuestros servidores es agradable por los tableros de administración que posee.
+
+Con NGINX Amplify podrás recolectar más de 100 métricas de NGINX y el sistema operativo. Amplify analiza los archivos de configuración propios del servidor, detecta configuraciones incorrectas y da recomendaciones de seguridad, también permite crear notificaciones que pueden ser enviadas por correo o a un canal de Slack con un simple clic.
+
+Los tableros de mando de Amplify sirven para verificar la disponibilidad del sitio e identificar situaciones anómalas en diferentes periodos de tiempo. Otra característica a destacar es que NGINX Amplify te permite administrar varios sitios, direcciones IP y un nombre para identificarlo.
+
+============================= NGINX Amplify: Instalación y configuración de un servidor para producción =============================
+
+cd /etc/nginx: Movernos a la carpeta de Nginx
+
+sudo apt install python2.7: Intalamos python 2.7
+
+Siendo root dentro de /etc/nginx:
+    sudo cat > conf.d/stub_status.conf: Modificar el archivo conf.d de la siguiente manera 
+
+    server{
+        listen 127.0.0.1:80;
+        server_name 127.0.0.1;
+        location /nginx_status {
+            stub_status on;
+            allow 127.0.0.1;
+            deny all;
+	    }
+    }
+
+sudo kill -HUP `cat /var/run/nginx.pid`: Matar el proceso de NGINX
+
+sudo systemctl restart nginx && systemctl enable nginx: reiniciamos y habilitamos NGINX
+
+Nos salimos del root y nos vamos a la raiz
+    Logearnos en el sitio web de Nginx Amplify y seguir las instrucciones de instalación: https://amplify.nginx.com
+
+    chmod +x install.sh: Le damos permisos de ejecuion al archivo antes de ejecutar el ultimo paso de la pagina
+
+    sudo nano install.sh: modificamos la linea packages_url a esta https://packages.amplify.nginx.com/py3/ y agregar:
+
+        # Get OS information
+        get_os_name () {
+
+        centos_flavor="centos"
+
+        # Use lsb_release if possible
+        if command -V lsb_release > /dev/null 2>&1; then
+                os=`lsb_release -is | tr '[:upper:]' '[:lower:]'`
+                codename=`lsb_release -cs | tr '[:upper:]' '[:lower:]'`
+                release=`lsb_release -rs | sed 's/\..*$//'`
+                codename='bionic' #AGREGAMOS ESTA LINEA  
+
+    Se ejecuta como dice en Nginx Amplify API_KEY=’#####…’ sh ./install.sh
+
+sudo systemctl restart nginx: Reiniciamos NGINX
+
+============================= Monitoreo de MySQL con Nagios =============================
+
+sudo apt install mysql-server: Intalar MySQL
+
+sudo vim /etc/mysql/debian.cnf: Obtener el password de MySQL
+
+mysql -u debian-sys-maint -p: Iniciar sesión en MySQL
+
+sudo mysql_secure_installation: Asegurar el server de la base de datos
+
+systemctl status apache2: Verificar que Apache esté funcionando
+
+sudo a2enmod rewrite cgi: Activar módulos rewrite y cgi
+
+sudo systemctl restart apache2: Reiniciar Apache
+
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin: Crear un usuario para Nagios
+
+direccion_ip_del_servidor:8080/nagios: Entrar a Nagios en nuestro navegador web, escribiendo como dirección
+
+Es muy importante notar que estamos ingresando en el puerto 8080, ya que ahí es donde está funcionando Apache
+
+sudo apt install -y libmcrypt-dev make libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext: Instalar las siguientes dependencias
+
+Si no instalaste los plugins en las clases anteriores, debes hacer lo siguiente: en primer lugar, posicionado en tu home, descargarlos:
+    wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz -0 plugins.tar.gz -O plugins.tar.gz
+
+tar xzvf plugins.tar.gz: Desempaquetar y descomprimir el archivo de plugins
+
+sudo ./config: Ya en la carpeta de plugins que se creo con el paso anterior, configurar los mismos
+
+sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg: Verificar que no existan errores ni warnings
+
+sudo systemctl restart nagios: Reiniciar Nagios
+
+wget https://labs.consol.de/assets/downloads/nagios/check_mysql_health-2.2.2.tar.gz -O mysqlplugin.tar.gz: En nuestro home, descargar el plugin de MySQL
+
+tar xzvf mysqlplugin.tar.gz: Desempaquetar y descomprimir el archivo del plugin
+
+============================= Configuración de Nagios =============================
+
+GRANT SELECT ON *.* TO 'nagios'@'localhost' IDENTIFIED BY 'nagiosplatziS14*';
+FLUSH PRIVILEGES; Ya en la consola de MySQL, crear un usuario (en sudo mysql)
+
+sudo vim /usr/local/nagios/etc/nagios.cfg
+    cfg_file=/usr/local/nagios/etc/objects/mysqlmonitoring.cfg: Ya dentro del archivo, agregar la siguiente linea para configurar Nagios
+
+sudo vim /usr/local/nagios/etc/objects/commands.cfg
+    Ya dentro del archivo, agregar las siguientes líneas: Crear comandos para hacer uso de Nagios
+
+    define command {
+        command_name check_mysql_health
+        command_line $USER1$/check_mysql_health -H $ARG4$ --username $ARG1$ --password $ARG2$ --port $ARG5$  --mode $ARG3$
+    }
+
+sudo vim /usr/local/nagios/etc/objects/mysqlmonitoring.cfg
+    Ya en el archivo, agregar las siguientes líneas: Crear el archivo que nombrarmos en la configuración en el archivo nagios.cfg
+
+    define service {
+        use local-service
+        host_name localhost
+        service_description MySQL connection-time
+        check_command check_mysql_health!nagios!nagiosplatziS14*!connection-time!127.0.0.1!3306!
+    }
+
+sudo systemctl stop nagios
+sudo systemctl status nagios
+sudo systemctl start nagios
+
+============================= Los logs, nuestros mejores amigos =============================
+
+find [ruta]: Buscar algo en el sistema operativo.
+    Modificadores:
+    -type: Indica que tipo estamos buscando; archivos, directorios y enlaces
+    -name: Indica el nombre de lo que estamos buscando
+    -iname: Indica el nombre de lo que estamos buscando, pero sin tener en cuenta mayúsculas y minúsculas
+    !: Niega la expresión que buscamos (es decir, busca lo contrario)
+    -mtime: Muestra archivos con cambios en los últimos n minutos
+
+grep [string] [archivo]: Busca una cadena de caracteres o expresión regular en un archivo determinado. Si ejecutamos por ejemplo algo como comando | grep [string] vamos a filtrar el resultado de un comando por la cadena o regex que especifiquemos
+
+awk: Es un lenguaje que nos ayuda a filtrar patrones en un archivo, organizarlos y darles formato
+
+find /var/log/ -iname "*.log" -type f: Muestra los archivos de log que tenemos en el sistema
+sudo find /etc/ -mtime 10 2: Muestra los archivos de configuración que tuvieron salidas de error en los últimos diez minutos
+awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -nr: Muestra las IP’s que se conectaron con nuestro servidor nginx
+awk '{print $9}' /var/log/nginx/access.log | sort | uniq -c | sort -nr: Muestra los errores que surgieron en nuestro servidor nginx
+
+============================= Otros servicios de logs =============================
+
+Aclaración: Un demonio es sinónimo de servicio en sistemas UNIX
+
+Collectd: Uno de los demonios más conocidos para recopilar datos de rendimiento y visualizarlos en un navegador. Está repleto de plugins: https://collectd.org/wiki/index.php/Table_of_Plugins
+Nmon: Sirve para obtener visualizaciones rápidas del sistema
+Munin Analiza el rendimiento del servidor, y muestra los resultados en gráficos históricos
+Grafana: Permite la visualización de datos métricos de nuestro servidor, además de la creación de cuadros de mando y gráficos
+
+============================= Las bases de bash =============================
+
+¿Qué es Bash? Es una shell de UNIX y el intérprete de comandos por defecto en la mayoría de distribuciónes GNU/Linux. Se pueden crear scripts, los cuales por convención terminan con la extensión .sh
+
+vi nom_archivo.sh: creamos un scripting
+
+#!/bin/bash: Definición de un intérprete para que lo que sigue se ejecute con Bash
+
+VARIABLE = "Hola mundo": Definición de una variable
+
+echo $VARIABLE: Impresión en pantalla
+
+# Comentario cualquiera: Creacion de un comentario
+
+============================= Las variables y su entorno de ejecución ============================= 
+
+env: Muestra las variables del sistema operativo
+
+$PATH: Guarda las rutas donde se ubican los archivos binarios que pueden ejecutarse directamente en la consola
+
+Verificar la cantidad de espacio en el S.O
+    #!/bin/bash
+    # Verificar la cantidad de espacio en el S.O
+    # Desarrollado por Jhon Edison
+
+    #$(comando): Esto quiere decir que el resultado de ejecutar ese comando en la terminal, se guardara en ese variable
+    CWD=$(pwd)  
+    FECHA=$(date +"%F%T")
+    echo $FECHA
+
+    df -h | grep /dev > uso_disco_"$FECHA".txt
+    df -h | grep /dev/sda2 >> uso_disco_"$FECHA".txt
+
+    echo "Se ha generado un archivo en la ubicación $CWD"
+
+./nom_archivo: Asi ejecutamos en script bash
+
+============================= Automatizando tareas desde la terminal =============================
+
+Generar backup de base de datos MySQL:
+
+    #!/bin/bash
+    # Shell script para obtener una copia desde MySQL
+    # Desarrollado por Jhon Edison
+
+    #Definimos las rutas desde donde nuestro script se puede ejecutar
+    PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+    #Variable que detecta si hay un error enconces para la ejecucion
+    set -e
+
+
+    readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    readonly SCRIPT_NAME="$(basename "$0")"
+
+    run
+    make_backup
+
+    function assert_is_installed {
+        local readonly name="$1"
+        if [[ ! $(command -v ${name})]]; then
+            log_error "The binary '$name' is required but it isn't in 		our system"
+            exit 1
+        fi
+    }
+
+    function log_error {
+        local readonly message "$1"
+        log "ERROR" "$message"
+    }
+
+    function  log {
+        local readonly level="$1"
+        local readonly message="$2"
+        local readonly timestamp=$(date +"%Y-%m-%d %H:%M:%S") >&2 echo -e "${timestamp} [${level}] [$SCRIPT_NAME] ${message}"
+            
+    }
+
+    function run {
+        #Esto en pocas palabras pregunta si ya esta instalado lo que esta dentro de las comillas, si no lo esta entonces lo intala
+        assert_is_installed "mysql" 
+        assert_is_installed "mysqldump"
+        assert_is_installed "gzip"
+        assert_is_installed "aws"
+    }
+
+    function make_backup {
+        local BAK="$(echo $HOME/mysql)"
+        local MYSQL="$(which mysql)"
+        local MYSQLDUMP="$(which mysqldump)"
+        local GZIP="$(which gzip)"
+        local NOW="$(date +"+%d-%m-%Y")"
+        local BUCKET="xxxxx"
+        
+        USER="xxxxxx"
+        PASS="xxxxxx"
+        HOST="xxxxxx"
+        DATABASE="xxxxxx"
+
+        [! -d "$BAK" ] && mkdir -p "$BAK"
+
+        FILE=$BAK/$DATABASE.$NOW-$(date +"%T").gz
+        local SECONDS=0
+        
+        $MYSQLDUMP --single-transaction --set-gtid-purged=OFF -u $USER -p $PASS -h $HOST $DATABASE | $GZIP -9 > $FILE
+
+        duration=$SECONDS
+        echo "$($duration / 60) minutes"
+        aws s3 cp $BAK "s3://$BUCKET" --recursive
+    }
+
+============================= Crontab =============================
+
+¿Qué es cron?: Es un administrador regular de procesos en segundo plano que comprueba si existen tareas para ejecutar, teniendo en cuenta la hora del sistema
+
+¿Qué es crontab?: Es el archivo de configuraciones de las tareas a ejecutar. Con el comando crontab -e se edita, con crontab -l se listan las tareas configuradas
+
+Formato de cron:
+    minute(0-59) hour(0-23) day_of_month(1-31) month(1-12|jan,feb,mar...) day_of_week(0-6|sun,mon,tue...) interpreter(ej:"/usr/bin/bash") command(ej:"pwd > /home/plazi/pwd.txt")
+
+Podríamos también realizar un escaneo automático de la máquina todos los días a las 05:00 PM y generar un reporte del estado de seguridad de la máquina con lynis.
+
+* 17 * * * /usr/sbin/lynis --quick > /home/edison/Documentos/Platzi/lynis_files/$(date +"\%F") 2>/dev/null
+
+============================= Entendiendo la gestión de vulnerabilidades =============================
+
+Malas prácticas:
+    No desactivar el usuario root
+    Realizar un login con usuario y password (sin ssh)
+    No validar la versión de software usada
+    Utilizar comandos r* o telnet
+    No identificar los servicios y puertos abiertos en el S.O
+    No gestionar correctamente los permisos de los usuarios
+
+Buenas prácticas:
+    Verificar las actualizaciones de seguridad y realizar la instalación de las mismas.
+    En CentOS:
+        yum check-update --security
+        yum update security
+    En Ubuntu:
+        apt update
+        apt upgrade
+
+============================= ¿Qué es una superficie de ataque? Principio del menor privilegio =============================
+
+Una superficie de ataque es el conjunto de datos conocidos o vulnerabilidades que pueden ser explotados por un atacante informático.
+
+Software útil para la gestión de vulnerabilidades
+    Lynis: Analiza nuestro servidor y nos da recomendaciones
+
+Manuales y frameworks útiles para la seguridad de nuestro servidor
+    SCAP: El Security Content Automation Protocol es un conjunto de reglas sobre la expresión y manipulación de información relacionada con     configuraciones y fallos.
+
+    OWASP: El Open Web Application Security Project es un proyecto de código abierto destinado a pelear contra la inseguridad informática
+
+============================= El firewall y sus reglas =============================
+
+sudo ufw status: Muestra el estado (activo/inactivo) y las reglas del firewall. Con el modificador numbered me muestra las reglas numeradas
+sudo ufw allow puerto: Habilita un puerto
+sudo ufw enable: Enciende el firewall
+sudo ufw delete numero_de_regla: Borra una regla
+sudo ufw allow from direccion_ip proto protocolo to any port puerto: Restringe las direcciones ip que pueden conectarse a cierto puerto. Recordar que SSH trabaja con el protocolo TCP
+sudo ufw reset: Elimina todas las reglas
+
+sudo ufw insert 1 deny from {IP} comment 'Bloqueada ip de Atacante': Banear una IP especifica
+
+sudo ufw insert 1 deny from {IP}/{rango} comment 'Bloqueada ip de Atacante': Banear uns red
+
+Recomendaciones:
+    Abrir al público únicamente el puerto 80 (http), 443 (https). Para un conjunto de IP’s específicas, habilitar el puerto 22 (ssh)
+
+============================= Escaneo de puertos con NMAP y NIKTO desde Kali Linux =============================
+
+nmap -sV -sC -O -oA nombre_de_archivo dirección_ip_del_servidor: Realiza un mapeo de la red
+nikto -h ip_del_host -o nombre_de_archivo: Escanea vulnerabilidades en un servidor
+
+============================= Lynis: Herramientas de auditoria de seguridad en Linux =============================
+
+sudo apt install lynis: Intalacion de Lynis
+
+sudo lynis audit system: Realiza un escaneo del sistema operativo, mostrándonos sugerencias y el estado de peligro de ciertos detalles en nuestra distribución
+
+============================= Configuración de NGINX para la aplicación de Node.js =============================
+
+git clone https://github.com/edisoncast/linux-platzi: Clonar el repositorio necesario para realizar la clase
+
+dentro de /linux-platzi
+
+sudo apt install nodejs npm: Instalar Node.js y npm
+
+en $HOME
+
+curl -sL https://deb.nodesource.com/setup_10.x -o node_setup.sh: Posicionados en el home, descargar Node 10
+
+sudo bash node_setup.sh: Instalar node 10
+
+sudo apt install gcc g++ make: Instalar gcc, g++ y make
+
+sudo apt install -y nodejs: Finalizar el proceso de instalación de la versión 10 de Node
+
+sudo adduser nodejs: Agregar el usuario nodejs si todavía no lo creaste
+
+node server.js: En la carpeta de linux-platzi, ejecutar el archivo server.js
+
+Crear un archivo de configuración para el servicio de Node:
+
+    sudo vim /lib/systemd/system/platzi@.service
+
+    # Una vez creado el archivo, llenarlo con la siguiente información
+
+    [Unit]
+    Description=Balanceo de carga para Platzi
+    Documentation=https://github.com/edisoncast/linux-platzi
+    After=network.target
+
+    [Service]
+    Enviroment=PORT=%i
+    Type=simple
+    User=nodejs
+    WorkingDirectory=/home/nodejs/linux-platzi
+    ExecStart=/usr/bin/node /home/nodejs/linux-platzi/server.js
+    Restart-on=failure
+
+    [Install]
+    WantedBy=multi-user.target
+
+sudo su - nodejs: Cambiar el usuario a nodejs
+
+git clone https://github.com/edisoncast/linux-platzi: Clonamos el repositorio
+
+mv linux-platzi server: Cambiar el nombre a la carpeta de linux-platzi a server
+
+Corregir los errores en el archivo de configuración del servicio en /lib/systemd/system/platzi@.service
+
+sudo chmod +x (./enable.sh)(./start.sh); Le damos permisos de ejecucion a las carpetas
+
+Iniciar el servicio (debemos estar en la carpeta /server/configuracion_servidor/bash)
+    cat enable.sh
+    cat start.sh
+    cat stop.sh
+    ./start.sh
+
+sudo systemctl status platzi@3000.service: Comprobabos que el servidor esta activo
+
+sudo systemctl start nginx: Iniciar el servicio de Nginx (Apagar antes Apache si es necesario)
+
+(Si arroja un problema ahorita el servidor, no te preocupes, ahorita va a jalar con los comandos siguientes)
+
+sudo truncate -s0 default: Una vez en la carpeta /etc/nginx/sites-available/ eliminar el contenido de la configuración de Nginx
+
+Editar el archivo de configuración:
+
+    sudo vim default
+
+    # Una vez en el archivo, escribir lo siguiente
+
+    server  {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        
+        server_name _;
+        
+        location / {
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $host;
+            proxy_http_version 1.1;
+            proxy_pass http://backend;
+        }
+    }
+
+    upstream backend {
+        server 127.0.0.1:3000;
+        server 127.0.0.1:3001;
+        server 127.0.0.1:3002;
+        server 127.0.0.1:3003;
+    }
+
+sudo nginx -t: Validamos que la configuración establecida fue correcta
+
+sudo systemctl restart nginx: Reiniciamos nginx
+
+curl localhost: Probamos todo haciendo un curl a localhost
